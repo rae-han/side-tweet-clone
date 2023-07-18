@@ -9,10 +9,11 @@ export const useUserSection = () => {
   const { data, error } = useSWR(USER_SECTION);
 
   useEffect(() => {
-    if (data && !data.ok) {
-      router.replace('signin');
+    console.log(1, data);
+    if (data && (!data.ok || !data.userId)) {
+      router.replace('/user/login');
     }
   }, [data, router]);
 
-  return { data, error, isLoading: !data && !error };
+  return { data: data?.session, error, isLoading: !data && !error };
 };

@@ -18,7 +18,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseType>) 
 
   if (!user) {
     return res.status(404).json({
-      ok: true,
+      ok: false,
       code: 404,
       message: 'Not Found',
     });

@@ -4,6 +4,7 @@ const HomePage = () => {
   const { data, isLoading, error } = useUserSection();
 
   console.log({ data, isLoading, error });
+  console.log(data);
 
   if (data) {
   }
