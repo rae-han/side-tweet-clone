@@ -1,7 +1,14 @@
-const Home = () => {
-  return (
-    <div>main</div>
-  )
-}
+import { useUserSection } from '@/hooks/user';
 
-export default Home;
+const HomePage = () => {
+  const data = useUserSection();
+
+  console.log(data);
+
+  if (data) {
+  }
+
+  return <div>main</div>;
+};
+
+export default HomePage;
