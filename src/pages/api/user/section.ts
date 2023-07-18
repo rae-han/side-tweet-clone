@@ -12,12 +12,15 @@ interface ResponseType {
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseType>) => {
-  if (!req.session.user?.id) {
-    return res.status(401).json({ ok: false, code: 401, message: 'Unauthorized' });
-  }
+  // if (!req.session.user?.id) {
+  //   return res.status(401).json({ ok: false, code: 401, message: 'Unauthorized' });
+  // }
+
+  console.log(req.session);
+  console.log(req.session.user);
 
   const user = await prismaClient.user.findUnique({
-    where: { id: req.session.user?.id },
+    where: { id: undefined, email: undefined },
   });
 
   if (!user) {

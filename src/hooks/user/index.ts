@@ -6,14 +6,12 @@ export const USER_SECTION = `/api/user/section`;
 
 export const useUserSection = () => {
   const router = useRouter();
-  const { data, error } = useSWR(USER_SECTION);
+  const { data, isLoading, error } = useSWR(USER_SECTION);
 
   useEffect(() => {
-    console.log(1, data);
-    if (data && (!data.ok || !data.userId)) {
-      router.replace('/user/login');
-    }
-  }, [data, router]);
+    console.log(1, data, error);
+    console.log({ data, isLoading, error });
+  }, [data, error, router]);
 
   return { data: data?.session, error, isLoading: !data && !error };
 };
