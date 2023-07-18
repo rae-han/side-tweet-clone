@@ -1,13 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import withApiSession from '@/libs/withApiSession';
-import prismaClient from '@/db/prismaClient';
+import prismaClient from "@apis/prismaClient";
 
 interface ResponseType {
   ok: boolean;
-  error?: {
-    code: number;
-    message: string;
-  };
+  code: number;
+  message: string
+
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseType>) => {
@@ -19,16 +18,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseType>) 
   });
 
   if (isExist) {
-    return res.status(412).json({
+    return res.status(409).json({
       ok: true,
-      error: {
-        code: 412,
-        message: '이미 존재하는 이메일 입니다.',
-      },
+      code: 409,
+      message: 'Conflict'
     });
   }
 
-  const result = await prismaClient?.user.create({
+  const user = await prismaClient?.user.create({
     data: {
       email,
       name: 'anonymous',
@@ -36,7 +33,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseType>) 
     },
   });
 
-  res.status(200).json({ ok: true });
+  console.log(user)
+
+  res.status(200).json({ ok: true, code: 200, message: 'success' });
 };
 
 export default withApiSession(handler);

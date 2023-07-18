@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import axios from "axios";
 
 interface UseMutationState<T> {
   loading: boolean;
-  data?: T;
+  result?: T;
   error?: object;
 }
 
@@ -13,24 +14,24 @@ interface UseMutationResult<T> extends UseMutationState<T> {
 const useMutation = <T = any>(url: string): UseMutationResult<T> => {
   const [state, setSate] = useState<UseMutationState<T>>({
     loading: false,
-    data: undefined,
+    result: undefined,
     error: undefined,
   });
   const mutation = (data: any) => {
     setSate((prev) => ({ ...prev, loading: true }));
-    fetch(url, {
+
+    const configs = {
       method: 'POST',
+      url,
       headers: {
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json().catch(() => {}))
-      .then((data) => setSate((prev) => ({ ...prev, data, loading: false })))
+      data
+    }
+
+    axios(configs)
+      .then((response) => setSate((prev) => ({ ...prev, result: response.data, loading: false })))
       .catch((error) => setSate((prev) => ({ ...prev, error, loading: false })));
-    // .then((data) => setSate((prev) => ({ ...prev, data })))
-    // .catch((error) => setSate((prev) => ({ ...prev, error })))
-    // .finally(() => setSate((prev) => ({ ...prev, loading: false })));
   };
   return { mutation, ...state };
 };

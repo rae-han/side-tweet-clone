@@ -1,9 +1,9 @@
 import { useUserSection } from '@/hooks/user';
 
 const HomePage = () => {
-  const data = useUserSection();
+  const { data, isLoading, error } = useUserSection();
 
-  console.log(data);
+  console.log({ data, isLoading, error });
 
   if (data) {
   }

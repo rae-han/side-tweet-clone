@@ -1,18 +1,15 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import withApiSession from "@/libs/withApiSession";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import withApiSession from '@/libs/withApiSession';
+import { IronSession } from 'iron-session';
 
 interface ResponseType {
   ok: boolean;
-  session: null;
+  session: IronSession | null;
 }
 
-const handler = (
-  req: NextApiRequest,
-  res: NextApiResponse<ResponseType>
-) => {
-  console.log('user session')
-  const session = null;
-  res.status(200).json({ ok: true, session  })
-}
+const handler = (req: NextApiRequest, res: NextApiResponse<ResponseType>) => {
+  const session = req.session;
+  res.status(200).json({ ok: true, session });
+};
 
-export default withApiSession(handler)
+export default withApiSession(handler);
