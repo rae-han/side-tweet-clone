@@ -23,7 +23,8 @@ const FormSchema: FormSchemaType[] = [
 const LoginPage = () => {
   const router = useRouter();
   const { register, handleSubmit } = useForm<FormValues>();
-  // const { data, isLoading, error } = useUserSection();
+  // const { data } = useUserSection();
+
   const { mutation, result } = useMutation<any>(`/api/user/session`);
 
   const onValid: SubmitHandler<FormValues> = (data) => {
@@ -48,6 +49,7 @@ const LoginPage = () => {
 
   return (
     <UserSectionLayout>
+      <button onClick={() => router.push('/')}>루트 페이지로 가기</button>
       <form onSubmit={handleSubmit(onValid, onInvalid)}>
         {FormSchema.map((item) => (
           <Input key={item.key} schema={item} register={register} />

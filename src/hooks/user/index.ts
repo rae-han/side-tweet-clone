@@ -1,12 +1,18 @@
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { undefined } from 'zod';
+import { useEffect, useState } from 'react';
 
 export const USER_SECTION = `/api/user/session`;
 
+interface UseSwrResult<T> {
+  data: T;
+  isLoading: boolean;
+  error: object;
+}
+
 export const useUserSection = () => {
   const router = useRouter();
+  const [state, setState] = useState<UseSwrResult<{ ok: boolean; code: number; message: string; userId: number }>>();
   const { data, isLoading, error, mutate } = useSWR(USER_SECTION);
 
   useEffect(() => {
@@ -16,5 +22,5 @@ export const useUserSection = () => {
     }
   }, [data, error, isLoading, mutate, router]);
 
-  return { data, error, isLoading };
+  return { data, error, isLoading, mutate };
 };

@@ -7,11 +7,21 @@ interface UseMutationState<T> {
   error?: object;
 }
 
-interface UseMutationResult<T> extends UseMutationState<T> {
+interface UseMutationProps {
+  url: string;
+  method?: 'POST' | 'DELETE' | 'PATCH';
+}
+
+interface UseMutationResult<T = any> extends UseMutationState<T> {
   mutation: (data: any) => void;
 }
 
-const useMutation = <T = any>(url: string, method: 'POST' | 'DELETE' | 'PATCH' = 'POST'): UseMutationResult<T> => {
+interface UseMutationHandler<T = any> {
+  (props: UseMutationProps): UseMutationResult<T>;
+}
+
+const useMutation = <T>(url: string, method = 'POST'): UseMutationResult<T> => {
+  // const useMutation: (props: UseMutationProps) => UseMutationResult<T> = <T = any>(url: string, method = 'POST') => {
   const [state, setSate] = useState<UseMutationState<T>>({
     loading: false,
     result: undefined,
@@ -20,23 +30,9 @@ const useMutation = <T = any>(url: string, method: 'POST' | 'DELETE' | 'PATCH' =
   const mutation = (data: any) => {
     setSate((prev) => ({ ...prev, loading: true }));
 
-    // fetch(url, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((response) => response.json().catch(() => {}))
-    //   .then((result) => setSate((prev) => ({ ...prev, result, loading: false })))
-    //   .catch((error) => setSate((prev) => ({ ...prev, error, loading: false })));
-
     const configs = {
       method,
       url,
-      headers: {
-        // 'Content-Type': 'application/json',
-      },
       data,
     };
 
