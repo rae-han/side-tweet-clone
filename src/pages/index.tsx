@@ -1,4 +1,7 @@
+import { GetServerSideProps } from 'next';
+
 import { useUserSection } from '@/hooks/user';
+import DefaultLayout from '@layouts/DefaultLayout';
 
 const HomePage = () => {
   const { data, isLoading, error } = useUserSection();
@@ -6,10 +9,14 @@ const HomePage = () => {
   console.log({ data, isLoading, error });
   console.log(data);
 
-  if (data) {
-  }
+  // if (data) {
+  // }
 
-  return <div>main</div>;
+  return <DefaultLayout>main</DefaultLayout>;
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  return { props: {} };
 };
 
 export default HomePage;

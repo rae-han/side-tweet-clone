@@ -45,3 +45,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 제가 확실하지 않은 상황에서 너무 가볍게 말을 한것 같네요. 덕분에 잘못된 지식도 고치고 더 배울수 있었습니다. 감사합니다!!
 
+
+

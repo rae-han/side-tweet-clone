@@ -1,0 +1,34 @@
+import React, { PropsWithChildren, useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+import useMutation from '@hooks/useMutation';
+import { useUserSection } from '@hooks/user';
+
+interface Props extends PropsWithChildren {}
+
+const Header = ({ children }: Props) => {
+  const router = useRouter();
+  const { data } = useUserSection();
+  const { mutation, result } = useMutation('/api/user/session', 'DELETE');
+
+  console.log(4, data);
+
+  const handleLogout = () => {
+    mutation({});
+  };
+
+  useEffect(() => {
+    if (result?.ok) {
+      router.push(`/user/login`);
+    }
+  }, [result, router]);
+
+  return (
+    <header>
+      {children}
+      <button onClick={handleLogout}>logout</button>
+    </header>
+  );
+};
+
+export default Header;

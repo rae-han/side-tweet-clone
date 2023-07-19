@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import withApiSession from '@/libs/withApiSession';
 import prismaClient from '@apis/prismaClient';
+import withHandler from '@libs/withHandler';
 
 interface ResponseType {
   ok: boolean;
@@ -9,7 +10,6 @@ interface ResponseType {
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseType>) => {
-  console.log('user register');
   const { email, password } = req.body;
 
   const user = await prismaClient.user.findUnique({
@@ -32,4 +32,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseType>) 
   return res.status(200).json({ ok: true, code: 200, message: 'success' });
 };
 
-export default withApiSession(handler);
+export default withApiSession(
+  withHandler({
+    methods: ['POST'],
+    handler,
+    isPrivate: false,
+  }),
+);
