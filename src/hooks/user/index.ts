@@ -17,10 +17,25 @@ export const useUserSection = () => {
 
   useEffect(() => {
     console.log('user session', data, isLoading, error);
-    if (!isLoading && error?.response) {
+    if (!isLoading && error?.response && router.pathname === '/') {
       router.replace('/user/login');
+    } else if (data && data.ok && router.pathname === '/user/login') {
+      router.replace('/');
     }
-  }, [data, error, isLoading, mutate, router]);
+  }, [data, error, isLoading, router]);
 
   return { data, error, isLoading, mutate };
 };
+
+export default function useUser() {
+  const { data, error } = useSWR('/api/users/me');
+  const router = useRouter();
+  useEffect(() => {
+    if (data && !data.ok) {
+      router.replace('/log-in');
+    } else if (data && data.ok && router.pathname === '/log-in') {
+      router.replace('/');
+    }
+  }, [data]);
+  return { user: data?.profile, isLoading: !data && !error };
+}

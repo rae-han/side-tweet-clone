@@ -7,6 +7,7 @@ import UserSectionLayout from '@/layouts/UserSectionLayout';
 import { FormSchemaType } from '@/typings/form';
 import useMutation from '@/hooks/useMutation';
 import { useUserSection } from '@hooks/user';
+import Button from '@components/Button';
 
 import Input from '@/components/Input';
 
@@ -23,7 +24,8 @@ const FormSchema: FormSchemaType[] = [
 const LoginPage = () => {
   const router = useRouter();
   const { register, handleSubmit } = useForm<FormValues>();
-  // const { data } = useUserSection();
+  const { data } = useUserSection();
+  console.log(data);
 
   const { mutation, result } = useMutation<any>(`/api/user/session`);
 
@@ -36,11 +38,15 @@ const LoginPage = () => {
     console.log(data);
   };
 
+  const handleRegisterRoute = () => {
+    router.push(`/user/register`);
+  };
+
   useEffect(() => {
     console.log(result);
-    if (result?.ok && result?.code === 200) {
-      router.replace(`/`);
-    }
+    // if (result?.ok && result?.code === 200) {
+    //   router.replace(`/`);
+    // }
   }, [result, router]);
 
   // useEffect(() => {
@@ -56,6 +62,9 @@ const LoginPage = () => {
         ))}
         <button type="submit">Log In</button>
       </form>
+      <Button type="button" onClick={handleRegisterRoute}>
+        Register
+      </Button>
     </UserSectionLayout>
   );
 };

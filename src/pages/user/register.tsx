@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 
 import UserSectionLayout from '@/layouts/UserSectionLayout';
@@ -6,7 +6,7 @@ import { FormSchemaType } from '@/typings/form';
 import useMutation from '@/hooks/useMutation';
 
 import Input from '@/components/Input';
-import {useRouter} from "next/router";
+import { useRouter } from 'next/router';
 
 interface FormValues {
   email: string;
@@ -42,10 +42,9 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (result?.ok && result?.code === 200) {
-      router.replace(`/login`)
+      router.replace(`/user/login`);
     }
-  }, [result])
-
+  }, [result, router]);
 
   return (
     <UserSectionLayout>
@@ -56,6 +55,7 @@ const RegisterPage = () => {
           ))}
           <button type="submit">가입</button>
         </form>
+        <button type="button">로그인 페이지로 돌아가기</button>
       </div>
     </UserSectionLayout>
   );

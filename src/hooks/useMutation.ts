@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 interface UseMutationState<T> {
-  loading: boolean;
+  isLoading: boolean;
   result?: T;
   error?: object;
 }
@@ -23,12 +23,12 @@ interface UseMutationHandler<T = any> {
 const useMutation = <T>(url: string, method = 'POST'): UseMutationResult<T> => {
   // const useMutation: (props: UseMutationProps) => UseMutationResult<T> = <T = any>(url: string, method = 'POST') => {
   const [state, setSate] = useState<UseMutationState<T>>({
-    loading: false,
+    isLoading: false,
     result: undefined,
     error: undefined,
   });
   const mutation = (data: any) => {
-    setSate((prev) => ({ ...prev, loading: true }));
+    setSate((prev) => ({ ...prev, isLoading: true }));
 
     const configs = {
       method,
@@ -37,8 +37,8 @@ const useMutation = <T>(url: string, method = 'POST'): UseMutationResult<T> => {
     };
 
     axios(configs)
-      .then((response) => setSate((prev) => ({ ...prev, result: response.data, loading: false })))
-      .catch((error) => setSate((prev) => ({ ...prev, error, loading: false })));
+      .then((response) => setSate((prev) => ({ ...prev, result: response.data, isLoading: false })))
+      .catch((error) => setSate((prev) => ({ ...prev, error, isLoading: false })));
   };
   return { mutation, ...state };
 };
