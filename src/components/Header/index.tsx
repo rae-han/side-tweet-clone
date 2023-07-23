@@ -6,10 +6,16 @@ import { useUserSection } from '@hooks/user';
 
 interface Props extends PropsWithChildren {}
 
+interface UserSessionDeleteResponse {
+  ok: boolean;
+  code: number;
+  message: string;
+}
+
 const Header = ({ children }: Props) => {
   const router = useRouter();
   const { data, mutate } = useUserSection();
-  const { mutation, result } = useMutation('/api/user/session', 'DELETE');
+  const { mutation, result } = useMutation<UserSessionDeleteResponse>('/api/user/session', 'DELETE');
 
   const handleLogout = () => {
     mutation({});
@@ -17,6 +23,7 @@ const Header = ({ children }: Props) => {
   };
 
   useEffect(() => {
+    console.log(444, result);
     if (result?.ok) {
       router.push(`/user/login`);
     }

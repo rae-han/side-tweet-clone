@@ -11,7 +11,7 @@ export const middleware = (req: NextRequest, evt: NextFetchEvent) => {
   console.log(req.url);
   console.log(req.url.includes('/user'));
   if (!req.cookies.has('tweetsession') && !req.url.includes('/user')) {
-    req.nextUrl.searchParams.set('from', req.nextUrl.pathname);
+    // req.nextUrl.searchParams.set('from', req.nextUrl.pathname);
     req.nextUrl.pathname = '/user/login';
     return NextResponse.redirect(req.nextUrl);
   }
