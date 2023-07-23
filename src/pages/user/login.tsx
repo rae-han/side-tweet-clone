@@ -44,9 +44,9 @@ const LoginPage = () => {
 
   useEffect(() => {
     console.log(result);
-    // if (result?.ok && result?.code === 200) {
-    //   router.replace(`/`);
-    // }
+    if (result?.ok && result?.code === 200) {
+      router.replace(`/`);
+    }
   }, [result, router]);
 
   // useEffect(() => {

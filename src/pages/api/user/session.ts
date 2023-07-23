@@ -61,7 +61,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseType>) 
     }
 
     await req.session.destroy();
-    console.log(req.session.user);
 
     return res.status(200).json({ ok: true, code: 200, message: 'success' });
   }

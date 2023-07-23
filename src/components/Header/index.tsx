@@ -11,17 +11,15 @@ const Header = ({ children }: Props) => {
   const { data, mutate } = useUserSection();
   const { mutation, result } = useMutation('/api/user/session', 'DELETE');
 
-  console.log(4, data);
-
   const handleLogout = () => {
     mutation({});
     mutate({});
   };
 
   useEffect(() => {
-    // if (result?.ok) {
-    //   router.push(`/user/login`);
-    // }
+    if (result?.ok) {
+      router.push(`/user/login`);
+    }
   }, [result, router]);
 
   return (
