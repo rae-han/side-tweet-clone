@@ -18,7 +18,7 @@ export interface PostsResponse extends APIResponse {
 
 export interface PostResult extends Post {
   User: User;
-  Like: Like;
+  Like: Like[];
   _count: {
     Like: number;
   };

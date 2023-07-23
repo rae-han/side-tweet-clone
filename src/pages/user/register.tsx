@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import UserSectionLayout from '@/layouts/UserSectionLayout';
 import { FormSchemaType } from '@/typings/form';
 import useMutation from '@/hooks/useMutation';
+import Button from '@components/Button';
 
 import Input from '@/components/Input';
 
@@ -57,11 +58,11 @@ const RegisterPage = () => {
           {FormSchema.map((item) => (
             <Input key={item.key} schema={item} register={register} />
           ))}
-          <button type="submit">가입</button>
+          <Button type="submit">가입</Button>
         </form>
-        <button type="button" onClick={onRouteLoginPage}>
+        <Button type="button" onClick={onRouteLoginPage}>
           로그인 페이지로 돌아가기
-        </button>
+        </Button>
       </div>
     </UserSectionLayout>
   );

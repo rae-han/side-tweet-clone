@@ -53,12 +53,14 @@ const LoginPage = () => {
 
   return (
     <UserSectionLayout>
-      <button onClick={() => router.push('/')}>루트 페이지로 가기</button>
+      <h1 className="m-8 font-bold text-sm text-red-400">
+        codesandbox 쿠키가 저장 안되는 문제 때문에 새 탭으로 열어서 확인 부탁드립니다.
+      </h1>
       <form onSubmit={handleSubmit(onValid, onInvalid)}>
         {FormSchema.map((item) => (
           <Input key={item.key} schema={item} register={register} />
         ))}
-        <button type="submit">Log In</button>
+        <Button type="submit">Log In</Button>
       </form>
       <Button type="button" onClick={handleRegisterRoute}>
         Register

@@ -30,9 +30,11 @@ const Header = ({ children }: Props) => {
   }, [result, router]);
 
   return (
-    <header>
-      {children}
-      <button onClick={handleLogout}>logout</button>
+    <header className="h-12 max-w-xl m-auto flex justify-end items-center">
+      {children || ''}
+      <button className="h-full text-xs py-4" onClick={handleLogout}>
+        로그아웃
+      </button>
     </header>
   );
 };

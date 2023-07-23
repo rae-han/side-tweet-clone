@@ -30,16 +30,19 @@ const PostItem = ({ post }: Props) => {
   };
 
   return (
-    <li>
+    <li className="mt-2 bg-slate-800 p-4 rounded-md">
       <Link href={`/post/${post.id}`}>
-        <p>{post.value}</p>
+        <p className="text-lg font-bold">{post.value}</p>
+        <h2 className="text-slate-200">{post.User.name}</h2>
       </Link>
-      <span>{post.id}</span>
-      <span>{post.User.name}</span>
       {post?.isLike ? (
-        <button onClick={onToggleLike}>좋아요 취소</button>
+        <button className="w-full mt-2 h-8 bg-red-800 rounded-lg font-bold" onClick={onToggleLike}>
+          ♡
+        </button>
       ) : (
-        <button onClick={onToggleLike}>좋아요</button>
+        <button className="w-full mt-2 h-8 bg-slate-700 rounded-lg font-bold" onClick={onToggleLike}>
+          ♡
+        </button>
       )}
     </li>
   );

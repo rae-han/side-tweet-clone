@@ -1,5 +1,6 @@
 import '@/styles/globals.css';
 import '@/styles/reset.css';
+import '@styles/common.scss';
 
 import { SWRConfig } from 'swr';
 import axios from 'axios';
