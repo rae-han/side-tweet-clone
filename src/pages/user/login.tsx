@@ -24,8 +24,6 @@ const FormSchema: FormSchemaType[] = [
 const LoginPage = () => {
   const router = useRouter();
   const { register, handleSubmit } = useForm<FormValues>();
-  const { data } = useUserSection();
-  console.log(data);
 
   const { mutation, result } = useMutation<any>(`/api/user/session`);
 
