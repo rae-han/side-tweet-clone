@@ -50,6 +50,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseType>) 
     req.session.user = {
       id: user.id,
     };
+
     await req.session.save();
 
     return res.status(200).json({ ok: true, code: 200, message: 'success' });

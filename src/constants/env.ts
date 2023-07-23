@@ -1,1 +1,2 @@
 export const COOKIE_SNOWFLAKE = process.env.COOKIE_PASSWORD ?? `ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`;
+export const COOKIE_NAME = 'tweetsession';

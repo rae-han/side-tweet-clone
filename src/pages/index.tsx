@@ -9,10 +9,10 @@ import { usePosts } from '@hooks/post';
 import PostList from '@components/Post/List';
 
 const HomePage = () => {
-  const { data, isLoading, error } = useUserSection();
-
-  console.log({ data, isLoading, error });
-  console.log(data);
+  // const { data, isLoading, error } = useUserSection();
+  //
+  // console.log({ data, isLoading, error });
+  // console.log(data);
 
   // if (data) {
   // }

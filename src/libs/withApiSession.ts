@@ -1,6 +1,6 @@
 import { withIronSessionApiRoute } from 'iron-session/next';
 
-import { COOKIE_SNOWFLAKE } from '@/constants/env';
+import { COOKIE_NAME, COOKIE_SNOWFLAKE } from '@/constants/env';
 
 declare module 'iron-session' {
   interface IronSessionData {
@@ -11,7 +11,7 @@ declare module 'iron-session' {
 }
 
 const cookieOptions = {
-  cookieName: 'tweetsession',
+  cookieName: COOKIE_NAME,
   password: COOKIE_SNOWFLAKE,
 };
 
