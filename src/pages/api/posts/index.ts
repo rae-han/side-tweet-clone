@@ -41,13 +41,30 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseType>) 
       },
       orderBy: [{ id: 'desc' }],
     });
-    console.log(posts);
+
+    const likedPosts = await prismaClient.like.findMany({
+      where: {
+        userId: user?.id,
+      },
+      select: {
+        postId: true,
+      },
+    });
+    const likedPostsId: { [key: string]: boolean } = likedPosts.reduce((acc, cur) => {
+      return { ...acc, [cur.postId]: true };
+    }, {});
+
+    const postsWithIsLike = posts.map((post) => ({
+      ...post,
+      isLike: likedPostsId[post.id.toString()] ?? false,
+    }));
+    // console.log(postsWithIsLike);
 
     return res.status(200).json({
       ok: true,
       code: 200,
       message: 'success',
-      posts,
+      posts: postsWithIsLike,
     });
   }
 };

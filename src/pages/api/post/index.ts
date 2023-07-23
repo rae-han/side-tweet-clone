@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { Post, User } from '@prisma/client';
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 import withApiSession from '@/libs/withApiSession';
@@ -7,17 +7,61 @@ import withHandler from '@libs/withHandler';
 
 interface ResponseType {
   ok: boolean;
-  userId?: number | undefined;
+  // userId?: number | undefined;
   code: number;
   message: string;
   postId?: number;
   error?: string;
+  post?: Post;
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseType>) => {
   console.log(req.method);
 
   if (req.method === 'GET') {
+    const {
+      session: { user },
+      query: { postId },
+    } = req;
+
+    if (!postId) {
+      return res.status(400).json({ ok: false, code: 400, message: 'postId not found' });
+    }
+
+    console.log(postId);
+    console.log(parseInt(postId.toString(), 10));
+
+    const post = await prismaClient.post.findUnique({
+      where: { id: parseInt(postId.toString(), 10) },
+      include: {
+        User: {
+          select: {
+            id: true,
+            email: true,
+            name: true,
+          },
+        },
+        Like: {
+          // where: {
+          //   userId: user?.id,
+          // },
+          select: {
+            id: true,
+          },
+        },
+        _count: {
+          select: {
+            Like: true,
+          },
+        },
+      },
+    });
+
+    if (!post) {
+      return res.status(400).json({ ok: false, code: 400, message: 'post not found' });
+    }
+
+    return res.status(200).json({ ok: true, code: 200, message: 'success', post });
   }
 
   if (req.method === 'POST') {
